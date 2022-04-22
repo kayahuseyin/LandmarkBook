@@ -12,9 +12,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var tableView: UITableView!
     
     var landmarkNames = [String]()
-    var landmarkImages = [UIImage]() //image dizisi
+    var landmarkImages = [UIImage]()//image dizisi
+    var landmarkInformation = [String]()
     var chosenLandmarkName = ""
     var chosenLandmarkImage = UIImage()
+    var chosenLandmarkInformation = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +25,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self //bunları yapmamız gerekiyor
         
         // Landmark Book Data
-        landmarkNames.append("Colloseum")
+        landmarkNames.append("Colosseum")
         landmarkNames.append("Great Wall")
         landmarkNames.append("Kremlin")
         landmarkNames.append("Stonehenge")
@@ -35,6 +37,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         landmarkImages.append(UIImage(named: "kremlin")!)
         landmarkImages.append(UIImage(named: "stonehenge")!)
         landmarkImages.append(UIImage(named: "tajmahal")!)
+        
+        
+        landmarkInformation.append("The Colosseum is an oval amphitheatre in the centre of the city of Rome, Italy. It is the largest ancient amphitheatre ever built. Construction began under the emperor Vespasian and was completed under Titus")
+        landmarkInformation.append("The Great Wall of China is a series of fortifications that were built acrpss the historical northern borders of ancient Chinese states and Imperial China as protection against various nomadic groups from the Eurasian Steppe.")
+        landmarkInformation.append("The Kremlin is fortified complex in the center of Moscow founded by the Rurikids ruling dynasty. It is the best known of the kremlins, and includes five palaces, four cathedrals, and the enclosing Kremlin Wall with Kremlin Towers.")
+        landmarkInformation.append("Stonehenge is a prehistoric monument on Salisbury Plain in Wittshire, England. It consists of an outer ring of vertical sarsen standing stones, each around 4.0 meter high, 2.1 meter wide and weighing around 25 tons.")
+        landmarkInformation.append("The Taj Mahal is an ivory-white marble mausoleum on the right bank of the river Yamuna in the Indian city of Agra. It was commissioned in 1632 by the Mughal emperor Shah Jahan to house the tomb his favourite wife.")
         
         navigationItem.title = "Landmark Book" //title
         
@@ -63,6 +72,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { //didselect
         chosenLandmarkName = landmarkNames[indexPath.row]
         chosenLandmarkImage = landmarkImages[indexPath.row] //nereye tıklarsam onu getir ve bu değişkenlere eşitle
+        chosenLandmarkInformation = landmarkInformation[indexPath.row]
         
         performSegue(withIdentifier: "toImageViewController", sender: nil)
     }
@@ -72,6 +82,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let destinationVC = segue.destination as! imageViewController //as!: bunu tanımla ve imageviewcontroller'a cast et
             destinationVC.selectedLandmarkName = chosenLandmarkName
             destinationVC.selectedLandmarkImage = chosenLandmarkImage //buradan değiştirebiliyoruz.
+            destinationVC.selectedInformationLabel = chosenLandmarkInformation
         }
     } //segue için
     
